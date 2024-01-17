@@ -63,14 +63,14 @@ The `APIManager` class manages requests related to loyalty programs using the Ga
 2. Create an instance of `ForceClient` with the necessary parameters:
 
 ```swift
-let authManager = ForceAuthManager.shared
-let forceClient = ForceClient(auth: authManager)
+let authManager = GamificationForceAuthenticator.shared
+let forceClient = GamificationForceClient(auth: authManager)
 ```
 
 3. Create an instance of `LoyaltyAPIManager` with the necessary parameters:
 
 ```swift
-let loyaltyAPIManager = LoyaltyAPIManager(auth: authManager, loyaltyProgramName: "YourLoyaltyProgramName", instanceURL: "YourInstanceURL", forceClient: forceClient)
+let gamificationAPIManager = APIManager(auth: authManager, instanceURL: "YourInstanceURL", forceClient: forceClient)
 ```
 
 4. Call the appropriate methods to interact with the Loyalty Management API:
@@ -79,22 +79,22 @@ let loyaltyAPIManager = LoyaltyAPIManager(auth: authManager, loyaltyProgramName:
 import GamificationMobileSDK
 
 let instanceURL = URL(string: "https://your_salesforce_instance_url")!
-let loyaltyProgramName = "YourLoyaltyProgramName"
-let authManager = ForceAuthManager.shared
-let forceClient = ForceClient(auth: authManager)
+let authManager = GamificationForceAuthenticator.shared
+let forceClient = GamificationForceClient(auth: authManager)
 
-let aPIManager = APIManager(auth: authManager, loyaltyProgramName: loyaltyProgramName, instanceURL: instanceURL, forceClient: forceClient)
+let gamificationAPIManager = APIManager(auth: authManager,
+                                        instanceURL: instanceURL,
+                                        forceClient: forceClient)
 
 
-// Retrieve promotions for a loyalty member
-let promotions = try await loyaltyAPIManager.getPromotions(membershipNumber: "1234567890")
-
-// Retrieve vouchers for a loyalty member
-let vouchers = try await loyaltyAPIManager.getVouchers(membershipNumber: "1234567890")
+// Retrieve getGames for a member
+    let result = try await gamificationAPIManager.getGames(participantId: "1234567890")
+// Retrieve the played game reward for a member
+    let result = try await gamificationAPIManager.playGame(gameParticipantRewardId: gameParticipantRewardId)
 
 ```
 
-For a detailed understanding of each method and its parameters, please refer to the comments in the provided `LoyaltyAPIManager` code.
+For a detailed understanding of each method and its parameters, please refer to the comments in the provided `APIManager` code.
 
   ```
 

@@ -1,6 +1,6 @@
 # Save Time and Effort With Gamification Mobile SDK for iOS
 
-Experience Gamification on your iOS mobile devices and use the mobile software development kit’s (SDK) capabilities and build custom mobile applications with unique user experiences. Use pre-built Gamification components to build your own apps or enhance your existing mobile apps. Build the SDK for your loyalty program members to view their assigned games, play games. The SDK is bundled with a ready-to-use sample app, which is embedded with Gamification features.
+Experience Gamification on your iOS mobile devices and use the mobile software development kit’s (SDK) capabilities and build custom mobile applications with unique user experiences. Use pre-built Gamification components to build your own apps or enhance your existing mobile apps. Build the SDK for your loyalty program members to view their assigned games, play games. sample app which is embedded with Gamification features.
 
 **Where:** This feature is available in Lightning Experience in all editions.  
 **How:** Install the Gamification Mobile SDK for iOS, create a connected app, and then clone the GitHub repository.
@@ -58,7 +58,7 @@ The `APIManager` class manages requests related to loyalty programs using the Ga
 
 ### Usage
 // Revist
-1. In order to use the SDK, you need to provide a valid `accessToken` to interact with Salesforce API. To do this, you are required to conform and implement [`GamificationForceAuthenticator`](https://github.com/loyaltysampleapp/GamificationMobileSDK-iOS/blob/enhancement/adding_testCases/Sources/GamificationMobileSDK/ForceSwift/GamificationForceAuthenticator.swift) protocol which we provided in the SDK. For our sample app, we implemented this protocol in [`ForceAuthManager.swift`](https://github.com/salesforce-misc/LoyaltyMobileSDK-iOS/blob/main/SampleApps/MyNTORewards/MyNTORewards/ForceSwift%2BExtra/ForceAuthManager.swift).
+1. In order to use the SDK, you need to provide a valid `accessToken` to interact with Salesforce API. To do this, you are required to conform and implement [`GamificationForceAuthenticator`](https://github.com/loyaltysampleapp/GamificationMobileSDK-iOS/Sources/GamificationMobileSDK/ForceSwift/GamificationForceAuthenticator.swift) protocol which we provided in the SDK. For our sample app, we implemented this protocol in [`GamificationForceAuthManager.swift`](https://github.com/salesforce-misc/LoyaltyMobileSDK-iOS/blob/main/SampleApps/MyNTORewards/MyNTORewards/ForceSwift%2BExtra/GamificationForceAuthManager.swift).
 
 2. Create an instance of `GamificationForceClient` with the necessary parameters:
 
@@ -73,7 +73,7 @@ let forceClient = GamificationForceClient(auth: authManager)
 let gamificationAPIManager = APIManager(auth: authManager, instanceURL: "YourInstanceURL", forceClient: forceClient)
 ```
 
-4. Call the appropriate methods to interact with the Loyalty Management API:
+4. Call the appropriate methods to interact with the Gamification API:
 
 ```swift
 import GamificationMobileSDK

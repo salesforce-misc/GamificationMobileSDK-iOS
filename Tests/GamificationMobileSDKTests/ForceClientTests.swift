@@ -42,14 +42,20 @@ final class ForceClientTests: XCTestCase {
         }
     }
     
-    func testFetch() async throws {
+    func testServerFetch() async throws {
         let data = try XCTestCase.load(resource: "GetGames_Success")
         let mockSession = URLSession.mock(responseBody: data, statusCode: 200)
         let gameDefinitions = try await forceClient.fetch(type: GameModel.self, with: getMockRequest(), urlSession: mockSession)
         XCTAssertEqual(gameDefinitions.status, true)
         XCTAssertEqual(gameDefinitions.gameDefinitions.count, 4)
         XCTAssertNil(gameDefinitions.message)
-        
+    }
+    
+    func testFetch() async throws {
+
+        let data = try XCTestCase.load(resource: "GetGames_Success")
+        let mockSession = URLSession.mock(responseBody: data, statusCode: 200)
+
         MockAuthenticator.sharedMock.needToThrowError = true
         // Handle authentication failed scenrio
         do {

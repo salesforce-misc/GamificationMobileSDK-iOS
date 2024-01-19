@@ -57,7 +57,6 @@ The `APIManager` class manages requests related to loyalty programs using the Ga
 - Manage asynchronous requests by using Swift Aync/Await syntax.
 
 ### Usage
-// Revist
 1. In order to use the SDK, you need to provide a valid `accessToken` to interact with Salesforce API. To do this, you are required to conform and implement [`GamificationForceAuthenticator`](https://github.com/loyaltysampleapp/GamificationMobileSDK-iOS/Sources/GamificationMobileSDK/ForceSwift/GamificationForceAuthenticator.swift) protocol which we provided in the SDK. For our sample app, we implemented this protocol in [`GamificationForceAuthManager.swift`](https://github.com/salesforce-misc/LoyaltyMobileSDK-iOS/blob/main/SampleApps/MyNTORewards/MyNTORewards/ForceSwift%2BExtra/GamificationForceAuthManager.swift).
 
 2. Create an instance of `GamificationForceClient` with the necessary parameters:

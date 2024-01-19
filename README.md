@@ -96,12 +96,10 @@ let gamificationAPIManager = APIManager(auth: authManager,
 
 For a detailed understanding of each method and its parameters, please refer to the comments in the provided `APIManager` code.
 
-  ```
-
 ## Contribute to the SDK
 
-You can contribute to the development of the Loyalty Management Mobile SDK. 
-1. Fork the Loyalty Management Mobile SDK for iOS [repository](https://github.com/loyaltysampleapp/GamificationMobileSDK-iOS).
+You can contribute to the development of the GamificationMobileSDK. 
+1. Fork the GamificationMobileSDK for iOS [repository](https://github.com/loyaltysampleapp/GamificationMobileSDK-iOS).
 2. Create a branch with a descriptive name.
 3. Implement your changes.
 4. Test your changes.
@@ -112,7 +110,7 @@ See also:
 
 ## License
 
-LoyaltyMobileSDK-iOS is available under the BSD 3-Clause License.
+GamificationMobileSDK-iOS is available under the BSD 3-Clause License.
 
 Copyright (c) 2023, Salesforce Industries
 All rights reserved.

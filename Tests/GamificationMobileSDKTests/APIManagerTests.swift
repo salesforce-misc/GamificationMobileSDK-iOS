@@ -33,12 +33,10 @@ private var gamificationAPIManager: APIManager!
         super.setUp()
         let forceClient = GamificationForceClient(auth: MockAuthenticator.sharedMock, forceNetworkManager: MockNetworkManager.sharedMock)
 
-        
         gamificationAPIManager = APIManager(auth: MockAuthenticator.sharedMock,
                                        instanceURL:"https://instanceUrl",
                                        forceClient: forceClient)
         MockNetworkManager.sharedMock.statusCode = 200
-        
     }
     
     override func tearDown() {
@@ -48,17 +46,14 @@ private var gamificationAPIManager: APIManager!
         
     func testGetGames() async throws {
         let identity = try await gamificationAPIManager.getGames(participantId: "123")
-
         XCTAssertNotNil(identity)
         XCTAssertEqual(identity.status, true)
-        XCTAssertEqual(identity.gameDefinitions.count, 4)
+        XCTAssertEqual(identity.gameDefinitions.count, 6)
    
         let devIdentity = try await gamificationAPIManager.getGames(participantId: "123", devMode: true)
-
-
         XCTAssertNotNil(devIdentity)
         XCTAssertEqual(identity.status, true)
-        XCTAssertEqual(identity.gameDefinitions.count, 4)
+        XCTAssertEqual(identity.gameDefinitions.count, 6)
         
         // Handle authentication failed scenrio
         MockNetworkManager.sharedMock.statusCode = 401
@@ -75,12 +70,9 @@ private var gamificationAPIManager: APIManager!
     
     func testPlayGames() async throws {
         let identity = try await gamificationAPIManager.playGame(gameParticipantRewardId: "123")
-
         XCTAssertNotNil(identity)
    
         let devIdentity = try await gamificationAPIManager.playGame(gameParticipantRewardId: "123", devMode: true)
-
-
         XCTAssertNotNil(devIdentity)
         
         // Handle authentication failed scenrio
@@ -95,5 +87,4 @@ private var gamificationAPIManager: APIManager!
             XCTAssertEqual(commonError, CommonError.authenticationNeeded)
         }
     }
-
 }

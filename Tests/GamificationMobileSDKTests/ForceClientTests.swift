@@ -13,7 +13,6 @@ final class ForceClientTests: XCTestCase {
 
     override func setUp() {
         forceClient = GamificationForceClient(auth: MockAuthenticator.sharedMock, forceNetworkManager: MockNetworkManager.sharedMock)
-
         super.setUp()
     }
     
@@ -23,7 +22,6 @@ final class ForceClientTests: XCTestCase {
     }
     
     func getMockRequest() async throws -> URLRequest {
-        
         let path = "game/participant/1234/games"
         let request = try  GamificationForceRequest.create(instanceURL: "https://instanceUrl", path: path, method: "GET")
         return request
@@ -32,9 +30,8 @@ final class ForceClientTests: XCTestCase {
     func testFetchLocalJson() async throws {
         let result = try forceClient.fetchLocalJson(type: GameModel.self, file: "GetGames_Success", bundle: Bundle.module)
         XCTAssertEqual(result.status, true)
-        XCTAssertEqual(result.gameDefinitions.count, 4)
+        XCTAssertEqual(result.gameDefinitions.count, 6)
         XCTAssertNil(result.message)
-        
         do {
             _ = try forceClient.fetchLocalJson(type: GameModel.self, file: "GetGames_Success", bundle: Bundle.main)
         } catch {
@@ -43,19 +40,18 @@ final class ForceClientTests: XCTestCase {
     }
     
     func testServerFetch() async throws {
+        MockNetworkManager.sharedMock.statusCode = 200
         let data = try XCTestCase.load(resource: "GetGames_Success")
         let mockSession = URLSession.mock(responseBody: data, statusCode: 200)
         let gameDefinitions = try await forceClient.fetch(type: GameModel.self, with: getMockRequest(), urlSession: mockSession)
         XCTAssertEqual(gameDefinitions.status, true)
-        XCTAssertEqual(gameDefinitions.gameDefinitions.count, 4)
+        XCTAssertEqual(gameDefinitions.gameDefinitions.count, 6)
         XCTAssertNil(gameDefinitions.message)
     }
     
     func testFetch() async throws {
-
         let data = try XCTestCase.load(resource: "GetGames_Success")
         let mockSession = URLSession.mock(responseBody: data, statusCode: 200)
-
         MockAuthenticator.sharedMock.needToThrowError = true
         // Handle authentication failed scenrio
         do {
@@ -70,7 +66,6 @@ final class ForceClientTests: XCTestCase {
         }
         
         MockAuthenticator.sharedMock.needToThrowError = false
-        
         MockNetworkManager.sharedMock.statusCode = 401
         var mockSessionWithError = URLSession.mock(responseBody: data, statusCode: 401)
         // Handle authentication failed scenrio
@@ -98,6 +93,5 @@ final class ForceClientTests: XCTestCase {
             }
             XCTAssertEqual(commonError, CommonError.functionalityNotEnabled)
         }
-
     }
 }

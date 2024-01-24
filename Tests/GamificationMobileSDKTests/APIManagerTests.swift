@@ -87,4 +87,26 @@ private var gamificationAPIManager: APIManager!
             XCTAssertEqual(commonError, CommonError.authenticationNeeded)
         }
     }
+    
+    func testGetGame() async throws {
+        let identity = try await gamificationAPIManager.getGame(participantId: "123", gameParticipantRewardId: "")
+        XCTAssertNotNil(identity)
+   
+        let devIdentity = try await gamificationAPIManager.getGame(participantId: "123", gameParticipantRewardId: "", devMode: true)
+        XCTAssertNotNil(devIdentity)
+        
+        // Handle authentication failed scenrio
+        MockNetworkManager.sharedMock.statusCode = 401
+        do {
+            _ = try await gamificationAPIManager.getGames(participantId: "123")
+        } catch {
+            guard let commonError = error as? CommonError else {
+                XCTFail("Unexpected error type: \(error)")
+                return
+            }
+            XCTAssertEqual(commonError, CommonError.authenticationNeeded)
+        }
+    }
+    
+    
 }

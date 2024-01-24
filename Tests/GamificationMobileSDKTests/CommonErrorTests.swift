@@ -12,6 +12,8 @@ import XCTest
 final class CommonErrorTests: XCTestCase {
 
     func testForceError() {
+        GamificationLogger.fault("Fault")
+        GamificationLogger.info("Info")
         XCTAssertEqual(CommonError.invalidData.description, "Invalid Data Error")
         XCTAssertEqual(CommonError.authenticationNeeded.description, "Authentication is need.")
         XCTAssertEqual(CommonError.userIdentityUnknown.description, "User Identity has not been set.")
@@ -36,5 +38,4 @@ final class CommonErrorTests: XCTestCase {
         XCTAssertEqual(CommonError.codeCredentials.errorDescription, "Authorization code and credentials flow failed.")
         XCTAssertEqual(CommonError.functionalityNotEnabled.errorDescription, "Functionality is not enabled.")
     }
-
 }

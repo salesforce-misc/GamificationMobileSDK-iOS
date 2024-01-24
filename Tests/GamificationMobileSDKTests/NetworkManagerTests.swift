@@ -39,10 +39,10 @@ final class NetworkManagerTests: XCTestCase {
             
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "NetworkManager cannot decode date string \(dateString)")
         }
-        let promotions = try decoder.decode(GameModel.self, from: outputData)
-        XCTAssertEqual(promotions.status, true)
-        XCTAssertEqual(promotions.gameDefinitions.count, 4)
-        XCTAssertNil(promotions.message)
+        let gameModel = try decoder.decode(GameModel.self, from: outputData)
+        XCTAssertEqual(gameModel.status, true)
+        XCTAssertEqual(gameModel.gameDefinitions.count, 6)
+        XCTAssertNil(gameModel.message)
     }
     
     func testHandleUnauthResponse() async throws {
@@ -71,16 +71,16 @@ final class NetworkManagerTests: XCTestCase {
     func testFetch() async throws {
         let data = try XCTestCase.load(resource: "GetGames_Success")
         let mockSession = URLSession.mock(responseBody: data, statusCode: 200)
-        let promotions = try await forceNetworkManager.fetch(type: GameModel.self, request: getMockRequest(), urlSession: mockSession)
-        XCTAssertEqual(promotions.status, true)
-        XCTAssertEqual(promotions.gameDefinitions.count, 4)
-        XCTAssertNil(promotions.message)
+        let gameModel = try await forceNetworkManager.fetch(type: GameModel.self, request: getMockRequest(), urlSession: mockSession)
+        XCTAssertEqual(gameModel.status, true)
+        XCTAssertEqual(gameModel.gameDefinitions.count, 6)
+        XCTAssertNil(gameModel.message)
         let mockSession1 = URLSession.mock(responseBody: data, statusCode: 401)
         
         // Handle authentication failed scenrio
         do {
             _ = try await forceNetworkManager.fetch(type: GameModel.self, request: getMockRequest(), urlSession: mockSession1)
-            XCTAssertEqual(promotions.status, true)
+            XCTAssertEqual(gameModel.status, true)
         } catch {
             guard let commonError = error as? CommonError else {
                 XCTFail("Unexpected error type: \(error)")
@@ -93,7 +93,7 @@ final class NetworkManagerTests: XCTestCase {
         // Handle authentication failed scenrio
         do {
             _ = try await forceNetworkManager.fetch(type: GameModel.self, request: getMockRequest(), urlSession: mockSession2)
-            XCTAssertEqual(promotions.status, true)
+            XCTAssertEqual(gameModel.status, true)
         } catch {
             guard let commonError = error as? CommonError else {
                 XCTFail("Unexpected error type: \(error)")

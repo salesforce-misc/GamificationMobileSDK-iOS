@@ -30,6 +30,7 @@ public struct GamificationForceRequest {
     public struct Header {
         static let accept = "Accept"
         static let contentType = "Content-Type"
+		static let callOptions = "Sforce-Call-Options"
     }
     
     /// create a URLRequest with path
@@ -136,9 +137,11 @@ public struct GamificationForceRequest {
                 return MIMEType.formUrlEncoded
             }
         }()
+		let clientIdentifier = "client=gamificationMobileSdk-iOS"
         let defaultHeaders: [String: String] = [
             Header.accept: MIMEType.json,
-            Header.contentType: contentType
+            Header.contentType: contentType,
+			Header.callOptions: clientIdentifier
         ].reduce(into: [:]) { $0[$1.0] = $1.1 }
         request.allHTTPHeaderFields = defaultHeaders.merging(headers ?? [:]) { (_, new) in new }
         

@@ -24,7 +24,6 @@ public struct GamificationForceRequest {
     public struct MIMEType {
         static let json = "application/json;charset=UTF-8"
         static let formUrlEncoded = "application/x-www-form-urlencoded;charset=utf-8"
-		static let gamificationMobileSdkiOS = "client=gamificationMobileSdk-iOS"
     }
     
     /// Constants for HTTP headers.
@@ -138,10 +137,11 @@ public struct GamificationForceRequest {
                 return MIMEType.formUrlEncoded
             }
         }()
+		let clientIdentifier = "client=gamificationMobileSdk-iOS"
         let defaultHeaders: [String: String] = [
             Header.accept: MIMEType.json,
             Header.contentType: contentType,
-			Header.callOptions: MIMEType.gamificationMobileSdkiOS
+			Header.callOptions: clientIdentifier
         ].reduce(into: [:]) { $0[$1.0] = $1.1 }
         request.allHTTPHeaderFields = defaultHeaders.merging(headers ?? [:]) { (_, new) in new }
         
